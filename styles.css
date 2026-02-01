@@ -154,17 +154,19 @@ h1 {
 
 .btn.no {
   position: absolute;
-  top: calc(50% + 160px);
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
   background: #fff;
   color: var(--ink);
   border: 2px dashed rgba(30, 26, 34, 0.25);
   box-shadow: 0 10px 24px rgba(30, 26, 34, 0.12);
+  transition: left 0.18s ease, top 0.18s ease, transform 0.18s ease, box-shadow 0.2s ease;
 }
 
 .btn.no:hover {
-  transform: translateX(-50%) scale(1.02);
+  transform: translate(-50%, -50%) scale(1.02);
+  box-shadow: 0 12px 26px rgba(30, 26, 34, 0.18);
 }
 
 @keyframes float {
@@ -198,6 +200,6 @@ h1 {
   }
 
   .btn.no {
-    top: calc(50% + 220px);
+    top: 65%;
   }
 }

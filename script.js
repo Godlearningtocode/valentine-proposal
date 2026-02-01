@@ -12,16 +12,34 @@ function rectsOverlap(r1, r2, padding = 8) {
   );
 }
 
+function placeNoButtonStart() {
+  const stageRect = stage.getBoundingClientRect();
+  const noRect = noBtn.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+
+  const startX = Math.min(
+    stageRect.width - noRect.width - 18,
+    Math.max(18, cardRect.right - stageRect.left + 24)
+  );
+  const startY = Math.min(
+    stageRect.height - noRect.height - 18,
+    Math.max(18, cardRect.bottom - stageRect.top + 18)
+  );
+
+  noBtn.style.left = `${startX}px`;
+  noBtn.style.top = `${startY}px`;
+}
+
 function moveNoButton() {
   const stageRect = stage.getBoundingClientRect();
   const noRect = noBtn.getBoundingClientRect();
   const cardRect = card.getBoundingClientRect();
   const yesRect = yesBtn.getBoundingClientRect();
 
-  const maxX = stageRect.width - noRect.width - 12;
-  const maxY = stageRect.height - noRect.height - 12;
-  const minX = 12;
-  const minY = 12;
+  const maxX = stageRect.width - noRect.width - 16;
+  const maxY = stageRect.height - noRect.height - 16;
+  const minX = 16;
+  const minY = 16;
 
   let attempts = 0;
   let nextLeft = noRect.left - stageRect.left;
@@ -38,7 +56,7 @@ function moveNoButton() {
       bottom: stageRect.top + randY + noRect.height,
     };
 
-    if (!rectsOverlap(candidate, cardRect, 16) && !rectsOverlap(candidate, yesRect, 16)) {
+    if (!rectsOverlap(candidate, cardRect, 24) && !rectsOverlap(candidate, yesRect, 32)) {
       nextLeft = randX;
       nextTop = randY;
       break;
@@ -52,4 +70,6 @@ function moveNoButton() {
 }
 
 noBtn.addEventListener("mouseenter", moveNoButton);
-window.addEventListener("resize", moveNoButton);
+window.addEventListener("resize", placeNoButtonStart);
+
+placeNoButtonStart();
