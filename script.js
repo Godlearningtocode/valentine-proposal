@@ -1,85 +1,32 @@
-const noBtn = document.getElementById("noBtn");
-const stage = document.getElementById("stage");
-const card = document.getElementById("card");
 const yesBtn = document.getElementById("yesBtn");
+const successMsg = document.getElementById("successMsg");
+const confetti = document.getElementById("confetti");
 
-function rectsOverlap(r1, r2, padding = 8) {
-  return !(
-    r1.right + padding < r2.left ||
-    r1.left - padding > r2.right ||
-    r1.bottom + padding < r2.top ||
-    r1.top - padding > r2.bottom
-  );
+function showSuccess() {
+  if (!successMsg) return;
+  successMsg.classList.add("is-visible");
+  yesBtn?.setAttribute("aria-pressed", "true");
+  fireConfetti();
 }
 
-function placeNoButtonStart() {
-  const stageRect = stage.getBoundingClientRect();
-  const noRect = noBtn.getBoundingClientRect();
-  const yesRect = yesBtn.getBoundingClientRect();
+yesBtn?.addEventListener("click", showSuccess);
+yesBtn?.addEventListener("touchstart", showSuccess, { passive: true });
 
-  const gap = 18;
-  const startX = Math.min(
-    stageRect.width - noRect.width - 18,
-    yesRect.right - stageRect.left + gap
-  );
-  const startY = Math.min(
-    stageRect.height - noRect.height - 18,
-    Math.max(18, yesRect.top - stageRect.top)
-  );
+function fireConfetti() {
+  if (!confetti) return;
+  confetti.innerHTML = "";
 
-  noBtn.style.left = `${startX}px`;
-  noBtn.style.top = `${startY}px`;
-}
+  const colors = ["#ff7f6e", "#ffcf5a", "#7dcfff", "#b6f7e5", "#ffd1e8"];
+  const pieces = 32;
 
-function moveNoButton() {
-  const stageRect = stage.getBoundingClientRect();
-  const noRect = noBtn.getBoundingClientRect();
-  const cardRect = card.getBoundingClientRect();
-  const yesRect = yesBtn.getBoundingClientRect();
-
-  const maxX = stageRect.width - noRect.width - 16;
-  const maxY = stageRect.height - noRect.height - 16;
-  const minX = 16;
-  const minY = 16;
-
-  let attempts = 0;
-  let nextLeft = noRect.left - stageRect.left;
-  let nextTop = noRect.top - stageRect.top;
-
-  while (attempts < 60) {
-    const randX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
-    const randY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
-
-    const candidate = {
-      left: stageRect.left + randX,
-      right: stageRect.left + randX + noRect.width,
-      top: stageRect.top + randY,
-      bottom: stageRect.top + randY + noRect.height,
-    };
-
-    if (!rectsOverlap(candidate, cardRect, 24) && !rectsOverlap(candidate, yesRect, 32)) {
-      nextLeft = randX;
-      nextTop = randY;
-      break;
-    }
-
-    attempts += 1;
+  for (let i = 0; i < pieces; i += 1) {
+    const piece = document.createElement("span");
+    piece.className = "confetti-piece";
+    piece.style.left = `${Math.random() * 100}%`;
+    piece.style.background = colors[i % colors.length];
+    piece.style.animationDelay = `${Math.random() * 0.3}s`;
+    piece.style.animationDuration = `${1 + Math.random() * 0.9}s`;
+    piece.style.transform = `translateY(-20px) rotate(${Math.random() * 180}deg)`;
+    confetti.appendChild(piece);
   }
-
-  noBtn.style.left = `${nextLeft}px`;
-  noBtn.style.top = `${nextTop}px`;
 }
-
-noBtn.addEventListener("mouseenter", moveNoButton);
-noBtn.addEventListener(
-  "touchstart",
-  (event) => {
-    event.preventDefault();
-    moveNoButton();
-  },
-  { passive: false }
-);
-noBtn.addEventListener("pointerdown", moveNoButton);
-window.addEventListener("resize", placeNoButtonStart);
-
-placeNoButtonStart();
