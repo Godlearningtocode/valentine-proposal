@@ -243,10 +243,12 @@ h1 {
 }
 
 .btn.no {
+  position: absolute;
   background: linear-gradient(120deg, #ffffff, #ffe6dc);
   color: var(--ink);
   box-shadow: 0 12px 24px rgba(30, 26, 34, 0.12);
-  transition: transform 0.6s ease;
+  transition: left 0.65s ease, top 0.65s ease, transform 0.65s ease;
+  z-index: 4;
 }
 
 .btn.no:hover {
