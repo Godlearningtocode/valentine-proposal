@@ -15,15 +15,16 @@ function rectsOverlap(r1, r2, padding = 8) {
 function placeNoButtonStart() {
   const stageRect = stage.getBoundingClientRect();
   const noRect = noBtn.getBoundingClientRect();
-  const cardRect = card.getBoundingClientRect();
+  const yesRect = yesBtn.getBoundingClientRect();
 
+  const gap = 18;
   const startX = Math.min(
     stageRect.width - noRect.width - 18,
-    Math.max(18, cardRect.right - stageRect.left + 24)
+    yesRect.right - stageRect.left + gap
   );
   const startY = Math.min(
     stageRect.height - noRect.height - 18,
-    Math.max(18, cardRect.bottom - stageRect.top + 18)
+    Math.max(18, yesRect.top - stageRect.top)
   );
 
   noBtn.style.left = `${startX}px`;
@@ -70,6 +71,15 @@ function moveNoButton() {
 }
 
 noBtn.addEventListener("mouseenter", moveNoButton);
+noBtn.addEventListener(
+  "touchstart",
+  (event) => {
+    event.preventDefault();
+    moveNoButton();
+  },
+  { passive: false }
+);
+noBtn.addEventListener("pointerdown", moveNoButton);
 window.addEventListener("resize", placeNoButtonStart);
 
 placeNoButtonStart();

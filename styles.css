@@ -123,6 +123,9 @@ h1 {
   display: flex;
   justify-content: center;
   gap: 20px;
+  align-items: center;
+  position: relative;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -154,10 +157,10 @@ h1 {
 
 .btn.no {
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 0;
+  top: 0;
   transform: translate(-50%, -50%);
-  background: #fff;
+  background: linear-gradient(120deg, #ffffff, #fff0e9);
   color: var(--ink);
   border: 2px dashed rgba(30, 26, 34, 0.25);
   box-shadow: 0 10px 24px rgba(30, 26, 34, 0.12);
@@ -192,14 +195,29 @@ h1 {
 
 @media (max-width: 700px) {
   .card {
-    padding: 36px 28px;
+    padding: 32px 22px;
   }
 
   .actions {
-    flex-direction: column;
+    gap: 14px;
   }
 
   .btn.no {
-    top: 65%;
+    top: 60%;
+  }
+}
+
+@media (max-width: 520px) {
+  h1 {
+    font-size: clamp(1.7rem, 7vw, 2.4rem);
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .btn {
+    padding: 12px 26px;
+    font-size: 0.95rem;
   }
 }
