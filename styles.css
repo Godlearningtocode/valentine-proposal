@@ -342,12 +342,10 @@ h1 {
 }
 
 .btn.no {
-  position: absolute;
   background: linear-gradient(120deg, #ffffff, #ffe6dc);
   color: var(--ink);
   box-shadow: 0 12px 24px rgba(30, 26, 34, 0.12);
-  transition: left 0.65s ease, top 0.65s ease, transform 0.65s ease;
-  z-index: 4;
+  transition: transform 0.65s ease;
 }
 
 .btn.no:hover {
@@ -429,8 +427,7 @@ h1 {
   }
 
   .actions {
-    flex-direction: column;
-    width: 100%;
+    gap: 12px;
   }
 
   h1 {
@@ -444,7 +441,6 @@ h1 {
   .btn {
     padding: 12px 26px;
     font-size: 0.95rem;
-    width: 100%;
-    max-width: 260px;
+    min-width: 120px;
   }
 }

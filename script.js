@@ -27,25 +27,6 @@ function showSuccess() {
 yesBtn?.addEventListener("click", showSuccess);
 yesBtn?.addEventListener("touchstart", showSuccess, { passive: true });
 
-function placeNoButtonInitial() {
-  if (!noBtn || !stage) return;
-  const stageRect = stage.getBoundingClientRect();
-  const noRect = noBtn.getBoundingClientRect();
-  const yesRect = yesBtn?.getBoundingClientRect();
-
-  const left = Math.min(
-    stageRect.width - noRect.width - 24,
-    (yesRect?.right ?? stageRect.width / 2) - stageRect.left + 16
-  );
-  const top = Math.min(
-    stageRect.height - noRect.height - 24,
-    (yesRect?.top ?? stageRect.height / 2) - stageRect.top
-  );
-
-  noBtn.style.left = `${Math.max(16, left)}px`;
-  noBtn.style.top = `${Math.max(16, top)}px`;
-}
-
 function moveNoButtonAnywhere() {
   if (!noBtn || !stage) return;
   const stageRect = stage.getBoundingClientRect();
@@ -80,13 +61,17 @@ function moveNoButtonAnywhere() {
     attempts += 1;
   }
 
-  noBtn.style.left = `${nextLeft}px`;
-  noBtn.style.top = `${nextTop}px`;
+  const translateX = nextLeft + stageRect.left - noRect.left;
+  const translateY = nextTop + stageRect.top - noRect.top;
+  noBtn.style.transform = `translate(${translateX}px, ${translateY}px)`;
+
+  window.setTimeout(() => {
+    noBtn.style.transform = "translate(0, 0)";
+  }, 5000);
 }
 
 noBtn?.addEventListener("mouseenter", moveNoButtonAnywhere);
 noBtn?.addEventListener("touchstart", moveNoButtonAnywhere, { passive: true });
-window.addEventListener("resize", placeNoButtonInitial);
 
 function fireConfetti() {
   if (!confetti) return;
@@ -107,7 +92,6 @@ function fireConfetti() {
   }
 }
 
-placeNoButtonInitial();
 
 function runTypewriter(text) {
   if (!typewriter) return;
