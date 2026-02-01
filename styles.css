@@ -190,6 +190,7 @@ body {
   place-items: center;
   padding: 48px 24px;
   z-index: 1;
+  overflow: hidden;
 }
 
 .card {
@@ -202,7 +203,7 @@ body {
   text-align: center;
   animation: rise 0.8s ease-out both;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .tag {
@@ -276,6 +277,7 @@ h1 {
   pointer-events: none;
   overflow: hidden;
   z-index: 5;
+  clip-path: inset(0 round 32px);
 }
 
 .confetti-piece {
