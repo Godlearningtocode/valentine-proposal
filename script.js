@@ -4,6 +4,9 @@ const confetti = document.getElementById("confetti");
 const noBtn = document.getElementById("noBtn");
 const stage = document.getElementById("stage");
 const card = document.getElementById("card");
+const intro = document.getElementById("intro");
+const openBtn = document.getElementById("openBtn");
+const typewriter = document.getElementById("typewriter");
 
 function rectsOverlap(r1, r2, padding = 8) {
   return !(
@@ -105,3 +108,28 @@ function fireConfetti() {
 }
 
 placeNoButtonInitial();
+
+function runTypewriter(text) {
+  if (!typewriter) return;
+  typewriter.textContent = "";
+  let index = 0;
+  const step = () => {
+    typewriter.textContent = text.slice(0, index);
+    index += 1;
+    if (index <= text.length) {
+      window.setTimeout(step, 35);
+    }
+  };
+  step();
+}
+
+function openSurprise() {
+  openBtn?.classList.add("is-open");
+  runTypewriter("Your smile is my favorite kind of magic.");
+  window.setTimeout(() => {
+    intro?.classList.add("is-hidden");
+  }, 450);
+}
+
+openBtn?.addEventListener("click", openSurprise);
+openBtn?.addEventListener("touchstart", openSurprise, { passive: true });

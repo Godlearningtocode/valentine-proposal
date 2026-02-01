@@ -24,6 +24,104 @@ body {
   overflow: hidden;
 }
 
+.intro {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at top, #fff6ee 0%, #ffe1d5 50%, #f7c8bb 100%);
+  z-index: 5;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.intro.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro-card {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 34px 36px;
+  border-radius: 26px;
+  box-shadow: 0 20px 50px rgba(26, 18, 36, 0.18);
+  backdrop-filter: blur(6px);
+  animation: rise 0.8s ease-out both;
+}
+
+.intro-tag {
+  margin: 0 0 18px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: rgba(30, 26, 34, 0.6);
+}
+
+.intro-hint {
+  margin: 16px 0 0;
+  font-size: 0.95rem;
+  color: rgba(30, 26, 34, 0.6);
+}
+
+.envelope {
+  position: relative;
+  width: 140px;
+  height: 110px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.envelope-body {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fff 0%, #ffd9cc 100%);
+  box-shadow: 0 14px 30px rgba(26, 18, 36, 0.18);
+}
+
+.envelope-lid {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffe6dc 0%, #ffb8c9 100%);
+  transform-origin: top center;
+  clip-path: polygon(0 0, 100% 0, 50% 55%);
+  transition: transform 0.6s ease;
+}
+
+.envelope-heart {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+  color: #ff6b85;
+}
+
+.envelope.is-open .envelope-lid {
+  transform: rotateX(150deg);
+}
+
+.greeting {
+  margin: 0 0 6px;
+  font-family: "Fraunces", serif;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+}
+
+.typewriter {
+  margin: 0 0 22px;
+  font-size: 1.05rem;
+  color: rgba(30, 26, 34, 0.7);
+  min-height: 1.6em;
+}
+
 .bg {
   position: fixed;
   inset: 0;
@@ -177,7 +275,7 @@ h1 {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
-  z-index: 2;
+  z-index: 5;
 }
 
 .confetti-piece {
@@ -188,6 +286,7 @@ h1 {
   opacity: 0;
   border-radius: 3px;
   animation: confetti-fall 1.4s ease-out forwards;
+  box-shadow: 0 6px 12px rgba(26, 18, 36, 0.12);
 }
 
 @keyframes confetti-fall {
@@ -196,7 +295,7 @@ h1 {
     opacity: 0;
   }
   10% {
-    opacity: 1;
+    opacity: 0.95;
   }
   100% {
     transform: translateY(140%) rotate(260deg);
@@ -310,6 +409,11 @@ h1 {
 @media (max-width: 700px) {
   .card {
     padding: 32px 22px;
+  }
+
+  .intro-card {
+    width: min(88vw, 360px);
+    padding: 28px 24px;
   }
 
   .actions {
