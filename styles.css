@@ -92,6 +92,8 @@ body {
   backdrop-filter: blur(6px);
   text-align: center;
   animation: rise 0.8s ease-out both;
+  position: relative;
+  overflow: hidden;
 }
 
 .tag {
@@ -127,6 +129,8 @@ h1 {
   opacity: 0;
   transform: translateY(10px) scale(0.98);
   transition: opacity 0.25s ease, transform 0.25s ease;
+  position: relative;
+  z-index: 3;
 }
 
 .success.is-visible {
@@ -139,6 +143,7 @@ h1 {
   inset: 0;
   pointer-events: none;
   overflow: hidden;
+  z-index: 2;
 }
 
 .confetti-piece {
@@ -172,6 +177,7 @@ h1 {
   align-items: center;
   position: relative;
   flex-wrap: nowrap;
+  z-index: 3;
 }
 
 .btn {
@@ -206,10 +212,10 @@ h1 {
   background: linear-gradient(120deg, #ffffff, #ffe6dc);
   color: var(--ink);
   box-shadow: 0 12px 24px rgba(30, 26, 34, 0.12);
+  transition: transform 0.6s ease;
 }
 
 .btn.no:hover {
-  transform: translateY(-2px) scale(1.02);
   box-shadow: 0 12px 26px rgba(30, 26, 34, 0.18);
 }
 
@@ -245,6 +251,11 @@ h1 {
 }
 
 @media (max-width: 520px) {
+  .actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
   h1 {
     font-size: clamp(1.7rem, 7vw, 2.4rem);
   }
@@ -256,5 +267,7 @@ h1 {
   .btn {
     padding: 12px 26px;
     font-size: 0.95rem;
+    width: 100%;
+    max-width: 260px;
   }
 }

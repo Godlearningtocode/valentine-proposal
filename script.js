@@ -1,6 +1,7 @@
 const yesBtn = document.getElementById("yesBtn");
 const successMsg = document.getElementById("successMsg");
 const confetti = document.getElementById("confetti");
+const noBtn = document.getElementById("noBtn");
 
 function showSuccess() {
   if (!successMsg) return;
@@ -11,6 +12,25 @@ function showSuccess() {
 
 yesBtn?.addEventListener("click", showSuccess);
 yesBtn?.addEventListener("touchstart", showSuccess, { passive: true });
+
+const noOffsets = [
+  [-16, 0],
+  [14, -6],
+  [-10, 10],
+  [12, 12],
+  [0, -12],
+];
+let noOffsetIndex = 0;
+
+function nudgeNoButton() {
+  if (!noBtn) return;
+  noOffsetIndex = (noOffsetIndex + 1) % noOffsets.length;
+  const [x, y] = noOffsets[noOffsetIndex];
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+noBtn?.addEventListener("mouseenter", nudgeNoButton);
+noBtn?.addEventListener("touchstart", nudgeNoButton, { passive: true });
 
 function fireConfetti() {
   if (!confetti) return;
